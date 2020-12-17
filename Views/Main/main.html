@@ -18,32 +18,29 @@
         <button class="btn" id="button">Go</button>
     </div>
 
-    <div id="secondary-form">
-        <div class="quality-item">
-            <input type="radio" id="male" name="gender" value="male">
-            <label for="male">480p</label>
-        </div>
-
-        <div class="quality-item">
-            <input type="radio" id="female" name="gender" value="female">
+    <form id="secondary-form">
+        <div class="quality-item" id="720p">
+            <input type="radio" name="quality" value="720">
             <label for="female">720p</label>
         </div>
 
-        <div class="quality-item">
-            <input type="radio" id="other" name="gender" value="other">
+        <div class="quality-item" id="1080p">
+            <input type="radio" name="quality" value="1080">
             <label for="other">1080p</label>
         </div>
 
-        <div class="quality-item">
-            <input type="radio" id="other" name="gender" value="other">
+        <div class="quality-item" id="1440p">
+            <input type="radio" name="quality" value="1440">
             <label for="other">1440p</label>
         </div>
 
-        <div class="quality-item">
-            <input type="radio" id="other" name="gender" value="other">
+        <div class="quality-item" id="2160p">
+            <input type="radio" name="quality" value="2160">
             <label for="other">2160p</label>
         </div>
-    </div>
+    </form>
+
+    <button class="btn" id="downloadButton">Download</button>
     
     <script src="main.js"></script>
 

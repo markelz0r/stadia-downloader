@@ -11,19 +11,35 @@ var Promise = require("bluebird");
 var ffmpeg = require('fluent-ffmpeg');
 var command = ffmpeg();
 
+var availableResolutions = [];
+var audioLink = null;
+var videoRepresentations = null;
 
 ipcMain.on('buttonPressed', (event,data) => {
-    console.log('Text was: ', data)
+    //console.log('Text was: ', data)
+
     rp(data)
     .then(scrapMpdLink)
-    .then((mpdLink) => rp(mpdLink).then(getLinks))
-    .then(downloadAudioVideo)
-    .then(encodeFinalVideo)
-    .catch(function(err){
-      console.log(err)
-    });
+    .then((mpdLink) => rp(mpdLink).then(getAvailableQuality))
+    .then(() => {
+      event.sender.send('available-resolutions', availableResolutions)
+      })
+    // .then(downloadAudioVideo)
+    // .then(encodeFinalVideo)
+    .catch(displayErrors);
 
 });
+
+ipcMain.on('downloadPressed', (event, data) => {
+  var links = getLinksForQuality(data)
+  
+  downloadAudioVideo(links)
+  .then(encodeFinalVideo)
+})
+
+function displayErrors(err){
+    console.log(err)
+}
 
 function scrapMpdLink(html){
   var link = $('meta[property="og:image"]', html).attr('content').split("=")[0];
@@ -37,17 +53,17 @@ function encodeFinalVideo(paths){
 var tempDir = os.tmpdir();
 var path = tempDir+'/outputfile.mp4';
 
-ffmpeg()
-.addInput(paths.video)
-.addInput(paths.audio)
-.videoCodec('copy')
-.on('error', function(err) {
-  console.log('An error occurred: ' + err.message);
-})
-.on('end', function() {
-  console.log('Processing finished !');
-})
-.save(path);
+  ffmpeg()
+    .addInput(paths.video)
+    .addInput(paths.audio)
+    .videoCodec('copy')
+    .on('error', function(err) {
+      console.log('An error occurred: ' + err.message);
+    })
+    .on('end', function() {
+      console.log('Processing finished !');
+    })
+    .save(path);
 }    
 
 function downloadAudioVideo(links){
@@ -86,39 +102,64 @@ var tempDir = os.tmpdir();
   })
 }
 
-function getLinks(html){
-var defaultOptions = {
-ignoreAttributes : false
+function getAvailableQuality(html){
+  var defaultOptions = {
+    ignoreAttributes : false
+    }
+    
+    var jsonObj = parser.parse(html, defaultOptions);
+    var adaptationSets = jsonObj["MPD"]["Period"];
+    
+    var set0 = adaptationSets.AdaptationSet[0]
+    var set1 = adaptationSets.AdaptationSet[1]
+    
+    if (set0['@_mimeType'] == 'audio/mp4'){
+    audioLink = set0.Representation.BaseURL
+    videoRepresentations = set1.Representation
+    } else
+    {
+    audioLink = set1.Representation.BaseURL
+    videoRepresentations = set0.Representation
+    }
+    
+    videoRepresentations.forEach(representation => {
+      availableResolutions.push(representation['@_height'])
+    });
+    
+    return true;
 }
 
-var jsonObj = parser.parse(html, defaultOptions);
-var adaptationSets = jsonObj["MPD"]["Period"];
+function getLinksForQuality(quality){
+// var defaultOptions = {
+// ignoreAttributes : false
+// }
+
+// var jsonObj = parser.parse(html, defaultOptions);
+// var adaptationSets = jsonObj["MPD"]["Period"];
+
+// ///
+// var audioLink = null
+// var videos = null
+
+// var set0 = adaptationSets.AdaptationSet[0]
+// var set1 = adaptationSets.AdaptationSet[1]
+
+// if (set0['@_mimeType'] == 'audio/mp4'){
+// audioLink = set0.Representation.BaseURL
+// videos = set1.Representation
+// } else
+// {
+// audioLink = set1.Representation.BaseURL
+// videos = set0.Representation
+// }
 
 ///
-var audioLink = null
-var videos = null
-
-var set0 = adaptationSets.AdaptationSet[0]
-var set1 = adaptationSets.AdaptationSet[1]
-
-if (set0['@_mimeType'] == 'audio/mp4'){
-audioLink = set0.Representation.BaseURL
-videos = set1.Representation
-} else
-{
-audioLink = set1.Representation.BaseURL
-videos = set0.Representation
-}
 
 ///
-
-///
-var selectedQuality = 266; 
-///console.log(adaptationSets)
 var videoLink = null;
 
-videos.forEach(representation => {
-  if (representation["@_id"] == selectedQuality)
+videoRepresentations.forEach(representation => {
+  if (representation["@_height"] == quality)
   videoLink=representation.BaseURL
 });
 
