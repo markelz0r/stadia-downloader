@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "test": "mocha"
   },
   "build": {
     "appId": "markelz0r.stadia.downloader",
@@ -47,6 +48,7 @@
     "fast-xml-parser": "^3.17.5",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
+    "mocha": "^8.2.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.6"
   }
