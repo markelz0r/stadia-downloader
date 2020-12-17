@@ -2,23 +2,48 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Stadia Downloader</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="main.css">
 </head>
-<body style="background: white;">
-    <style>
-        #drag-file {
-            background-color: blue;
-            color:white;
-            text-align: center;
-            width:300px;
-            height:300px;
-        }
-    </style>
+<body>
     
+    <div id="main-form">
+        <div class="group">      
+          <input type="text" id="link" name="lnk" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Clip link</label>
+        </div>
+        <button class="btn" id="button">Go</button>
+    </div>
 
-    <input id="link" name="lnk">
-    <button id = "button">Go</button>
+    <div id="secondary-form">
+        <div class="quality-item">
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">480p</label>
+        </div>
+
+        <div class="quality-item">
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">720p</label>
+        </div>
+
+        <div class="quality-item">
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">1080p</label>
+        </div>
+
+        <div class="quality-item">
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">1440p</label>
+        </div>
+
+        <div class="quality-item">
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">2160p</label>
+        </div>
+    </div>
     
     <script src="main.js"></script>
 

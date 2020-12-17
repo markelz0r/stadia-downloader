@@ -1,15 +1,20 @@
 const { app, BrowserWindow }  = require('electron')
 require("./Controllers/MainController.js")
 
+require('electron-reload')(__dirname);
+
 function createWindow () {
   const win = new BrowserWindow({
     width: 500,
     height: 200,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      spellcheck: true
     }
   })
 
+  win.removeMenu() 
+  win.webContents.openDevTools()
   win.loadFile('Views/Main/main.html')
 }
 

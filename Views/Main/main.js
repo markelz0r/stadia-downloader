@@ -1,7 +1,5 @@
 const { ipcRenderer } = require('electron')
 
-console.log("I am here1;")
-
     var btn = document.getElementById('button');
 
     btn.onclick = () => {
@@ -11,4 +9,8 @@ console.log("I am here1;")
         return true;
     };
 
-   
+    ipcRenderer.on("videoAvailable", onVideoAvailable)
+
+   function onVideoAvailable(event,data){
+
+   }
