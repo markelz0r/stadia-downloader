@@ -5,17 +5,27 @@ body{
     padding: 0;
     overflow: hidden;
     font-family:'Roboto';
+    text-align: center;
 }
 
 #main-form{
     margin-top: 30px;
-    margin-left: 3px;
 }
 
 #button {
     width: 35px;
     height: 35px;
 }
+
+#downloadButton{
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+}
+
 .quality-item{
   visibility: hidden;
 }
@@ -30,7 +40,6 @@ body{
 }
 
 .btn {
-  
     border-width: 0;
     outline: none;
     border-radius: 2px;

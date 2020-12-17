@@ -16,7 +16,9 @@ var audioLink = null;
 var videoRepresentations = null;
 
 ipcMain.on('buttonPressed', (event,data) => {
-    //console.log('Text was: ', data)
+    availableResolutions = [];
+    audioLink = null;
+    videoRepresentations = null;
 
     rp(data)
     .then(scrapMpdLink)
@@ -32,9 +34,12 @@ ipcMain.on('buttonPressed', (event,data) => {
 
 ipcMain.on('downloadPressed', (event, data) => {
   var links = getLinksForQuality(data)
-  
+
   downloadAudioVideo(links)
   .then(encodeFinalVideo)
+  .then((path) => {
+    event.sender.send('clip-created', path)
+  })
 })
 
 function displayErrors(err){
@@ -52,18 +57,19 @@ function encodeFinalVideo(paths){
 
 var tempDir = os.tmpdir();
 var path = tempDir+'/outputfile.mp4';
-
+return new Promise(function (resolve, reject) {
   ffmpeg()
     .addInput(paths.video)
     .addInput(paths.audio)
     .videoCodec('copy')
     .on('error', function(err) {
-      console.log('An error occurred: ' + err.message);
+      reject(err)
     })
     .on('end', function() {
-      console.log('Processing finished !');
+      resolve(path)
     })
     .save(path);
+});
 }    
 
 function downloadAudioVideo(links){

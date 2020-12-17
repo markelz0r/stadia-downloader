@@ -9,7 +9,8 @@ function createWindow () {
     height: 200,
     webPreferences: {
       nodeIntegration: true,
-      spellcheck: true
+      spellcheck: false,
+      enableRemoteModule: true
     }
   })
 
