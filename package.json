@@ -26,12 +26,13 @@
         }
       ]
     },
-    "appImage": {
-      "license": "LICENSE"
-    },
     "nsis": {
       "createDesktopShortcut": "always",
       "license": "LICENSE"
+    },
+    "linux": {
+        "target" : "deb",
+        "maintainer": "Andrew Odintsov"
     }
   },
   "keywords": [],
