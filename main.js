@@ -5,8 +5,8 @@ require('electron-reload')(__dirname);
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 500,
-    height: 250,
+    width: 550,
+    height: 200,
     icon: __dirname + 'img/logo.png',
     webPreferences: {
       nodeIntegration: true,
@@ -16,7 +16,8 @@ function createWindow () {
   })
 
   win.removeMenu() 
-//win.webContents.openDevTools()
+  win.setResizable(false);
+  //win.webContents.openDevTools()
   win.loadFile('Views/Main/main.html')
 }
 

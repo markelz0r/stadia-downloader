@@ -16,6 +16,9 @@ var q1080 = document.getElementById('1080p');
 var q1440 = document.getElementById('1440p');
 var q2160 = document.getElementById('2160p');
 
+var appVersion = document.getElementById('app-version');
+appVersion.innerHTML = app.getVersion();
+
 var downloadBtn = document.getElementById('downloadButton');
 
 btn.onclick = () => {
