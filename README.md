@@ -22,8 +22,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/markelz0r/stadia-downloader">
+    <img src="img/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Stadia Downloader</h3>
@@ -69,8 +69,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="img/screenshot.png" alt="Screenshot" width="400">
 
 Google Stadia comes with a great feature allowing you to save 30 second clips and share those using the link. 
 The problem is that there is (currently) no way to doanload clips using link share feature. Also you can only download your own clips in 1080p resolution which isn't great either
@@ -146,4 +145,4 @@ Project Link: [https://github.com/markelz0r/stadia-downloader](https://github.co
 [license-url]: https://github.com/markelz0r/stadia-downloader/blob/main/LICENSE
 [downloads-shield]: https://img.shields.io/github/downloads/markelz0r/stadia-downloader/total
 [downloads-url]: https://github.com/markelz0r/stadia-downloader/releases
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: img/screenshot.png=250x
