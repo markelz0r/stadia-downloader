@@ -17,9 +17,6 @@
       "icon": "./img/logo.icns",
       "category": "public.app-category.utilities"
     },
-    "win": {
-      "icon": "./img/logo.png"
-    },
     "asarUnpack": [
       "node_modules/ffmpeg-static/bin/${os}/${arch}/ffmpeg",
       "node_modules/ffmpeg-static/index.js",
