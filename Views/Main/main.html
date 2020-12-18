@@ -9,15 +9,15 @@
 </head>
 
 <body>
-
+    <div class="main-content">
     <div id="main-form">
         <div class="group">
             <input type="text" id="link" name="lnk" required>
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>Clip link</label>
+            <label>Clip URL</label>
         </div>
-        <button class="btn" id="button">Go</button>
+        <button class="btn" id="button">Find</button>
     </div>
 
     <form id="secondary-form">
@@ -43,9 +43,11 @@
     </form>
 
     <button class="btn" id="downloadButton">Download</button>
-
-    <script src="main.js"></script>
-
+    </div>
+    <div class="main-footer">
+        <div id="app-version"></div>
+    </div>    
 </body>
 
+<script src="main.js"></script>
 </html>

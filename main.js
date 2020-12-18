@@ -1,12 +1,15 @@
+require('./preload')
 const { app, BrowserWindow }  = require('electron')
-require("./Controllers/MainController.js")
+const { autoUpdater } = require("electron-updater")
 
+require("./Controllers/MainController.js")
 require('electron-reload')(__dirname);
+
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 500,
-    height: 250,
+    width: 550,
+    height: 200,
     icon: __dirname + 'img/logo.png',
     webPreferences: {
       nodeIntegration: true,
@@ -16,7 +19,8 @@ function createWindow () {
   })
 
   win.removeMenu() 
-//win.webContents.openDevTools()
+  win.setResizable(false);
+  //win.webContents.openDevTools()
   win.loadFile('Views/Main/main.html')
 }
 
@@ -27,6 +31,10 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+app.on('ready', function()  {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
