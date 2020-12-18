@@ -1,3 +1,5 @@
+require('./preload')
+
 const { ipcRenderer } = require('electron')
 const { dialog } = require('electron').remote
 const app = require('electron').remote.app

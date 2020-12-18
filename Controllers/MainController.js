@@ -1,4 +1,5 @@
-const { ipcMain } = require('electron');
+//const { ipcMain } = require('electron');
+const ipcMain = global.ipcMain
 const { Path } = require('path');
 const rp = require('request-promise');
 const request = require('request');
@@ -175,4 +176,8 @@ const download = (url, dest, cb) => {
     return cb(err.message);
   });
 
+};
+
+module.exports = {
+  scrapMpdLink
 };

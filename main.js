@@ -1,3 +1,4 @@
+require('./preload')
 const { app, BrowserWindow }  = require('electron')
 const { autoUpdater } = require("electron-updater")
 
