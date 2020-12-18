@@ -12,6 +12,11 @@
   "build": {
     "appId": "markelz0r.stadia.downloader",
     "publish": "github",
+    "asarUnpack":[
+      "node_modules/ffmpeg-static/bin/${os}/${arch}/ffmpeg",
+      "node_modules/ffmpeg-static/index.js",
+      "node_modules/ffmpeg-static/package.json"
+    ],
     "dmg": {
       "contents": [
         {
@@ -31,8 +36,8 @@
       "license": "LICENSE"
     },
     "linux": {
-        "target" : "deb",
-        "maintainer": "Andrew Odintsov"
+      "target": "deb",
+      "maintainer": "Andrew Odintsov"
     }
   },
   "keywords": [],
@@ -47,6 +52,7 @@
     "cheerio": "^1.0.0-rc.3",
     "electron-reload": "^1.5.0",
     "fast-xml-parser": "^3.17.5",
+    "ffmpeg-static": "^4.2.7",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "mocha": "^8.2.1",

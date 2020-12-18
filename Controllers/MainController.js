@@ -9,7 +9,11 @@ var parser = require('fast-xml-parser');
 var Promise = require("bluebird");
 
 var ffmpeg = require('fluent-ffmpeg');
-var command = ffmpeg();
+const ffmpegPath = require('ffmpeg-static').replace(
+    'app.asar',
+    'app.asar.unpacked'
+);
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 var availableResolutions = [];
 var audioLink = null;
@@ -57,6 +61,7 @@ function encodeFinalVideo(paths){
 
 var tempDir = os.tmpdir();
 var path = tempDir+'/outputfile.mp4';
+
 return new Promise(function (resolve, reject) {
   ffmpeg()
     .addInput(paths.video)
