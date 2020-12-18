@@ -1,7 +1,9 @@
 const { app, BrowserWindow }  = require('electron')
-require("./Controllers/MainController.js")
+const { autoUpdater } = require("electron-updater")
 
+require("./Controllers/MainController.js")
 require('electron-reload')(__dirname);
+
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -28,6 +30,10 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+app.on('ready', function()  {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
