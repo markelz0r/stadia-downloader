@@ -10,9 +10,13 @@
     "test": "mocha"
   },
   "build": {
+    "publish": [{
+      "provider": "github",
+      "owner": "markelz0r",
+      "repo": "stadia-downloader"
+    }],
     "productName": "Stadia Downloader",
     "appId": "markelz0r.stadia.downloader",
-    "publish": "github",
     "mac": {
       "icon": "./img/logo.icns",
       "category": "public.app-category.utilities"
