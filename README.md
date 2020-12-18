@@ -41,6 +41,7 @@
 
 [![Build][build-shield]][build-url]
 [![Issues][issues-shield]][issues-url]
+[![Downloads][downloads-shield]][downloads-url]
 [![GPL License][license-shield]][license-url]
 
 
@@ -138,9 +139,11 @@ Project Link: [https://github.com/markelz0r/stadia-downloader](https://github.co
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [build-shield]: https://img.shields.io/travis/markelz0r/stadia-downloader
-[build-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[build-url]: https://travis-ci.org/github/markelz0r/stadia-downloader
 [issues-shield]: https://img.shields.io/github/issues/markelz0r/stadia-downloader
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[issues-url]: https://github.com/markelz0r/stadia-downloader/issues
 [license-shield]: https://img.shields.io/github/license/markelz0r/stadia-downloader
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[license-url]: https://github.com/markelz0r/stadia-downloader/blob/main/LICENSE
+[downloads-shield]: https://img.shields.io/github/downloads/markelz0r/stadia-downloader/total
+[downloads-url]: https://github.com/markelz0r/stadia-downloader/releases
 [product-screenshot]: images/screenshot.png
