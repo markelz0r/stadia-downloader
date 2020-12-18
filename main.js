@@ -6,7 +6,8 @@ require('electron-reload')(__dirname);
 function createWindow () {
   const win = new BrowserWindow({
     width: 500,
-    height: 200,
+    height: 250,
+    icon: __dirname + 'img/logo.png',
     webPreferences: {
       nodeIntegration: true,
       spellcheck: false,

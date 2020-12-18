@@ -1,6 +1,6 @@
 {
   "name": "stadia-downloader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -10,8 +10,21 @@
     "test": "mocha"
   },
   "build": {
+    "productName": "Stadia Downloader",
     "appId": "markelz0r.stadia.downloader",
     "publish": "github",
+    "mac": {
+      "icon": "./img/logo.icns",
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "icon": "./img/logo.png"
+    },
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/bin/${os}/${arch}/ffmpeg",
+      "node_modules/ffmpeg-static/index.js",
+      "node_modules/ffmpeg-static/package.json"
+    ],
     "dmg": {
       "contents": [
         {
@@ -31,8 +44,9 @@
       "license": "LICENSE"
     },
     "linux": {
-        "target" : "deb",
-        "maintainer": "Andrew Odintsov"
+      "icon": "./img/logo.png",
+      "target": "deb",
+      "maintainer": "Andrew Odintsov"
     }
   },
   "keywords": [],
@@ -47,6 +61,7 @@
     "cheerio": "^1.0.0-rc.3",
     "electron-reload": "^1.5.0",
     "fast-xml-parser": "^3.17.5",
+    "ffmpeg-static": "^4.2.7",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "mocha": "^8.2.1",
