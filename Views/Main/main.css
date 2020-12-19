@@ -6,15 +6,25 @@ body{
     overflow: hidden;
     font-family:'Roboto';
     text-align: center;
-}
-
-#main-form{
-    margin-top: 30px;
+    height: 100vh;
 }
 
 #button {
     width: 35px;
     height: 35px;
+}
+
+#app-version{
+  color: #999;
+}
+
+.main-content{
+  height: 90vh;
+  padding-top: 25px;
+}
+
+.main-footer{
+  height: 10vh;
 }
 
 #downloadButton{
@@ -153,7 +163,8 @@ body{
     font-size:14px;
     color:#c0392b;
   }
-  
+
+
   /* BOTTOM BARS ================================= */
   .bar 	{ position:relative; display:block; width:450px; }
   .bar:before, .bar:after 	{
