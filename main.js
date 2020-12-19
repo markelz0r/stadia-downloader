@@ -20,7 +20,7 @@ function createWindow () {
 
   win.removeMenu() 
   win.setResizable(false);
-  //win.webContents.openDevTools()
+  win.webContents.openDevTools()
   win.loadFile('Views/Main/main.html')
 }
 

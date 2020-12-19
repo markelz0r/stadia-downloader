@@ -13,3 +13,5 @@ describe('#scrapMpdLink(html)', function() {
           expect(sut.scrapMpdLink(fakeHtml)).to.equal(expectedMpdLink)
         }) 
 })
+
+process.env.NODE_ENV = ""
