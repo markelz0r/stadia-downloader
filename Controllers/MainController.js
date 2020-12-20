@@ -1,4 +1,3 @@
-//const { ipcMain } = require('electron');
 const ipcMain = global.ipcMain
 const { Path } = require('path');
 const rp = require('request-promise');
@@ -126,7 +125,7 @@ function getAvailableQuality(html) {
     availableResolutions.push(representation['@_height'])
   });
 
-  return true;
+  return availableResolutions;
 }
 
 function getLinksForQuality(quality) {
@@ -178,6 +177,8 @@ const download = (url, dest, cb) => {
 
 };
 
+// Expose methods for unit testing
 module.exports = {
-  scrapMpdLink
+  scrapMpdLink,
+  getAvailableQuality
 };

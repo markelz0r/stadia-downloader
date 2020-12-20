@@ -1,6 +1,6 @@
 {
   "name": "stadia-downloader",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -10,11 +10,13 @@
     "test": "mocha"
   },
   "build": {
-    "publish": [{
-      "provider": "github",
-      "owner": "markelz0r",
-      "repo": "stadia-downloader"
-    }],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "markelz0r",
+        "repo": "stadia-downloader"
+      }
+    ],
     "productName": "Stadia Downloader",
     "appId": "markelz0r.stadia.downloader",
     "mac": {
