@@ -32,9 +32,9 @@
     An awesome tool serving all your Stadia clip downloading needs
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/markelz0r/stadia-downloader/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/markelz0r/stadia-downloader/issues">Request Feature</a>
   </p>
 </p>
 
