@@ -1,4 +1,5 @@
 require('./preload')
+
 const { app, BrowserWindow }  = require('electron')
 const { autoUpdater } = require("electron-updater")
 
@@ -14,13 +15,13 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true,
       spellcheck: false,
-      enableRemoteModule: true
+      enableRemoteModule: true,
+      contextIsolation: false
     }
   })
 
   win.removeMenu() 
   win.setResizable(false);
-  //win.webContents.openDevTools()
   win.loadFile('Views/Main/main.html')
 }
 

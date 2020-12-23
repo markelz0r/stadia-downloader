@@ -1,26 +1,24 @@
 const { ipcRenderer } = require('electron')
-const { dialog } = require('electron').remote
-const app = require('electron').remote.app
-console.log(app)
-console.log(dialog)
+const r = require('electron').remote
+const { dialog } = r
+const app = r.app
 
-var http = require('http');
 var fs = require('fs');
 var path = require('path');
 
-
 var btn = document.getElementById('button');
-
 var q720 = document.getElementById('720p');
 var q1080 = document.getElementById('1080p');
 var q1440 = document.getElementById('1440p');
 var q2160 = document.getElementById('2160p');
+var downloadBtn = document.getElementById('downloadButton');
+var spinner = document.getElementById('spinner');
 
+// Set APP version
 var appVersion = document.getElementById('app-version');
 appVersion.innerHTML = app.getVersion();
 
-var downloadBtn = document.getElementById('downloadButton');
-
+//Create subscriptions
 btn.onclick = () => {
     var text = document.getElementById('link').value;
     console.log("button pressed!!")
@@ -31,25 +29,31 @@ btn.onclick = () => {
 downloadBtn.onclick = () => {
     var selected = document.querySelector('input[name="quality"]:checked').value
     ipcRenderer.send('downloadPressed', selected);
+    spinner.style.visibility = "visible";
 }
 
 ipcRenderer.on("available-resolutions", onVideoAvailable)
 
 ipcRenderer.on("clip-created", onClipCreated)
 
+// Debug functionality
+document.addEventListener("keydown", function (e) {
+    if (e.key === "F7") {
+        r.getCurrentWindow().toggleDevTools();
+    } else if (e.key === "F5") {
+        location.reload();
+    }
+});
+
 async function onClipCreated(event, data) {
-    console.log(data)
     var toLocalPath = path.resolve(app.getPath("downloads"), path.basename(data))
 
     var userSelection = await dialog.showSaveDialog({ defaultPath: toLocalPath })
     console.log(userSelection.filePath);
     move(data, userSelection.filePath, onSaveError)
-
 }
 
 function onVideoAvailable(event, data) {
-    console.log(data);
-
     if (data.includes("720"))
         q720.style.visibility = "visible";
 
@@ -64,6 +68,7 @@ function onVideoAvailable(event, data) {
 }
 
 function onSaveError(err) {
+    spinner.style.visibility = "hidden";
     console.log(err)
 }
 
