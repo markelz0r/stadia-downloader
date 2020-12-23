@@ -12,6 +12,7 @@ var q1080 = document.getElementById('1080p');
 var q1440 = document.getElementById('1440p');
 var q2160 = document.getElementById('2160p');
 var downloadBtn = document.getElementById('downloadButton');
+var spinner = document.getElementById('spinner');
 
 // Set APP version
 var appVersion = document.getElementById('app-version');
@@ -28,6 +29,7 @@ btn.onclick = () => {
 downloadBtn.onclick = () => {
     var selected = document.querySelector('input[name="quality"]:checked').value
     ipcRenderer.send('downloadPressed', selected);
+    spinner.style.visibility = "visible";
 }
 
 ipcRenderer.on("available-resolutions", onVideoAvailable)
@@ -69,6 +71,7 @@ function onVideoAvailable(event, data) {
 }
 
 function onSaveError(err) {
+    spinner.style.visibility = "hidden";
     console.log(err)
 }
 
