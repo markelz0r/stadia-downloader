@@ -9,7 +9,7 @@ node_js:
 matrix:
   include:
     - os: osx
-      osx_image: xcode10.2
+      osx_image: xcode12.2
       language: node_js
       node_js: "14.15.2"
       env:
