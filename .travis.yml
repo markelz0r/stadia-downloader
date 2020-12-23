@@ -34,7 +34,6 @@ cache:
 
 # add git lfs for large file support
 before_install:
-  before_install:
   - echo 'DOCKER_OPTS="$DOCKER_OPTS --registry-mirror=https://mirror.gcr.io"'
   - sudo service docker restart
   - |
