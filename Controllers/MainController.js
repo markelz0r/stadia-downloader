@@ -26,10 +26,9 @@ ipcMain.on('buttonPressed', (event, data) => {
 
   rp(data)
     .then(scrapMpdLink)
-    .then((mpdLink) => rp(mpdLink).then(getAvailableQuality))
-    .then(() => {
-      event.sender.send('available-resolutions', availableResolutions)
-    })
+    .then(rp)
+    .then(getAvailableQuality)
+    .then(() => {event.sender.send('available-resolutions', availableResolutions)})
     .catch(displayErrors);
 });
 

@@ -46,7 +46,6 @@ document.addEventListener("keydown", function (e) {
 });
 
 async function onClipCreated(event, data) {
-    console.log(data)
     var toLocalPath = path.resolve(app.getPath("downloads"), path.basename(data))
 
     var userSelection = await dialog.showSaveDialog({ defaultPath: toLocalPath })
@@ -55,8 +54,6 @@ async function onClipCreated(event, data) {
 }
 
 function onVideoAvailable(event, data) {
-    console.log(data);
-
     if (data.includes("720"))
         q720.style.visibility = "visible";
 
