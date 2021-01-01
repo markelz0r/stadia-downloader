@@ -1,26 +1,24 @@
 const ipcMain = global.ipcMain
-const { Path } = require('path');
 const rp = require('request-promise');
 const request = require('request');
 const $ = require('cheerio');
 const os = require('os');
 const fs = require('fs');
-var parser = require('fast-xml-parser');
-var Promise = require("bluebird");
+const parser = require('fast-xml-parser');
+const Promise = require("bluebird");
+const ffmpeg = require('fluent-ffmpeg');
 
-var ffmpeg = require('fluent-ffmpeg');
 const ffmpegPath = require('ffmpeg-static').replace(
   'app.asar',
   'app.asar.unpacked'
 );
+
 ffmpeg.setFfmpegPath(ffmpegPath);
 
-var availableResolutions = [];
 var audioLink = null;
 var videoRepresentations = null;
 
 ipcMain.on('buttonPressed', (event, data) => {
-  availableResolutions = [];
   audioLink = null;
   videoRepresentations = null;
 
@@ -28,7 +26,7 @@ ipcMain.on('buttonPressed', (event, data) => {
     .then(scrapMpdLink)
     .then(rp)
     .then(getAvailableQuality)
-    .then(() => {event.sender.send('available-resolutions', availableResolutions)})
+    .then((availableResolutions) => {event.sender.send('available-resolutions', availableResolutions)})
     .catch(displayErrors);
 });
 
@@ -40,6 +38,7 @@ ipcMain.on('downloadPressed', (event, data) => {
     .then((path) => {
       event.sender.send('clip-created', path)
     })
+    .catch(displayErrors);
 })
 
 function displayErrors(err) {
@@ -73,7 +72,7 @@ function encodeFinalVideo(paths) {
   });
 }
 
-function downloadAudioVideo(links) {
+async function downloadAudioVideo(links) {
   var tempDir = os.tmpdir();
   console.log(tempDir);
 
@@ -84,33 +83,33 @@ function downloadAudioVideo(links) {
   var videoLoaded = new Promise(function (resolve, reject) {
     download(links.video, videoLocation, resolve)
   });
+  
+  // Download audio
+  var audioLoaded =  new Promise(function (resolve, reject) {
+    download(links.audio, audioLocation, resolve);
+  });
 
-  return videoLoaded
-    .then(function (err) {
-      return new Promise(function (resolve, reject) {
-        download(links.audio, audioLocation, resolve);
-      });
-    })
-    .then(function () {
-      var paths = {
-        video: videoLocation,
-        audio: audioLocation
-      }
+  await audioLoaded;
+  await videoLoaded;
 
-      return paths;
-    })
+  var paths = {
+    video: videoLocation,
+    audio: audioLocation
+  };
+
+  return paths;
 }
 
 function getAvailableQuality(html) {
-  var defaultOptions = {
+  var parserOptions = {
     ignoreAttributes: false
   }
 
-  var jsonObj = parser.parse(html, defaultOptions);
+  var jsonObj = parser.parse(html, parserOptions);
   var adaptationSets = jsonObj["MPD"]["Period"];
-
   var set0 = adaptationSets.AdaptationSet[0]
   var set1 = adaptationSets.AdaptationSet[1]
+  var availableResolutions = [];
 
   if (set0['@_mimeType'] == 'audio/mp4') {
     audioLink = set0.Representation.BaseURL
@@ -135,9 +134,6 @@ function getLinksForQuality(quality) {
       videoLink = representation.BaseURL
   });
 
-  console.log("Video link: " + videoLink);
-  console.log("Audio link: " + audioLink);
-
   var links = {
     video: videoLink,
     audio: audioLink
@@ -145,7 +141,6 @@ function getLinksForQuality(quality) {
 
   return links;
 }
-
 
 const download = (url, dest, cb) => {
   const file = fs.createWriteStream(dest);
