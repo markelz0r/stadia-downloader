@@ -34,7 +34,6 @@ cache:
 
 # add git lfs for large file support
 before_install:
-  - npm install -g electron-builder
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       echo 'DOCKER_OPTS="$DOCKER_OPTS --registry-mirror=https://mirror.gcr.io"'
@@ -57,7 +56,7 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "rm -rf node_modules && yarn --link-duplicates --pure-lockfile && yarn test"
+        /bin/bash -c "yarn global add electron-builder && rm -rf node_modules && yarn --link-duplicates --pure-lockfile && yarn test"
     else
       yarn test
     fi
