@@ -46,9 +46,23 @@ document.addEventListener("keydown", function (e) {
 });
 
 async function onClipCreated(event, data) {
-    var toLocalPath = path.resolve(app.getPath("downloads"), path.basename(data))
+    var opsys = process.platform;
+    var toLocalPath = null
+    if (opsys == "win32" || opsys == "win64") {
+        var basename = path.win32.basename(data);
+        toLocalPath = path.join(app.getPath("downloads"), basename)
+    } else {
+        var basename = path.basename(data);
+        toLocalPath = path.join(app.getPath("downloads"), basename)
+    }
 
-    var userSelection = await dialog.showSaveDialog({ defaultPath: toLocalPath })
+    var userSelection = await dialog.showSaveDialog({
+        defaultPath: toLocalPath,
+        filters: [{
+            name: 'MP4 Video',
+            extensions: ['mp4']
+        }]
+    })
     console.log(userSelection.filePath);
     move(data, userSelection.filePath, onSaveError)
 }
